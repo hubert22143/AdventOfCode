@@ -8,8 +8,17 @@ fileInput.addEventListener('change', (event) => {
         reader.onload = (e) => {
             valuesToRetrieve = e.target.result.split('\n');
             valuesToRetrieve = valuesToRetrieve.filter(value => value.trim() !== '');
+
+            // Measure start time
+            const startTime = performance.now();
+
             console.log('Values from the file:', valuesToRetrieve);
             processValues();
+
+            // Measure end time
+            const endTime = performance.now();
+            const executionTime = endTime - startTime;
+            console.log('Execution time:', executionTime, 'milliseconds');
         };
         reader.readAsText(file);
     }
@@ -32,10 +41,9 @@ function processValues() {
         if (extractedValue) {
             let firstNumber = parseInt(extractedValue[0]);
             let lastNumber = parseInt(extractedValue.slice(-1));
-            let arr = parseInt([firstNumber,lastNumber].join(''));
-            console.log("The numbers are:",arr);
-            totalSum += arr
-
+            let arr = parseInt([firstNumber, lastNumber].join(''));
+            console.log("The numbers are:", arr);
+            totalSum += arr;
         }
     });
 
